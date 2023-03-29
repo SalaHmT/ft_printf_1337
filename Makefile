@@ -12,7 +12,7 @@
 
 NAME	= libftprintf.a
 
-CC	= cc 
+CC	= cc
 
 CFLAGS	= -Wall -Wextra -Werror
 
@@ -26,18 +26,19 @@ SRCS =	$(SRC)/ft_printf_dependency.c \
 			$(SRC)/ft_printf_uns_dependecy.c \
 			ft_printf.c \
 
-OBJ =	$(SRCS:%.c=.$(BUILD_DIR)/%.o)
+OBJ =	$(SRCS:.c=.o)
+
+
+$(NAME):$(OBJ)
+		$(AR) $(NAME) $(OBJ)
 
 all:	$(NAME)
 
-$(NAME):$(OBJ)
-		$(AR) $(NAME) $(OBJ)  		
-
-$(BUILD_DIR)/%.o: %.c ft_printf.h
-		$(CC) $(CFLAGS)  -c  $< 
+%.o: %.c include/ft_printf.h
+		$(CC) $(CFLAGS)  -c  $< -o $@
 
 clean:
-		$(RM) $(OBJ) 
+		$(RM) $(OBJ)
 
 fclean: clean
 		$(RM) $(NAME)

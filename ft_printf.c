@@ -39,13 +39,15 @@ int	ft_printf(const char *str, ...)
 
 	p_len = 0;
 	va_start(args, str);
-	if (write(1, 0, 0))
-		return (-1);
+	if (!*str)
+		return (0);
 	while (*str)
 	{
 		if (*str == '%')
 		{
 			str++;
+			if (*str == '\0')
+				break ;
 			check_args(*str, args, &p_len);
 		}
 		else
